@@ -6,27 +6,24 @@ currentOrder = [0, 0, 0]
 
 def getUserName():
     # Gets the users name and welcomes them to the ordering system, returns name to the main() variable of userName
-    name = str(input("Please enter your name:"))
-    name = name.replace(" ","")
-    while name == "":
-        name = str(input("Error!\nPlease enter your name:"))
-        name = name.replace(" ","")
-    print("\nWelcome " + name + " to the tropic airlines ordering system")
+    step = str("name")
+    choice = str(input("Please enter your name:"))
+    choice = choice.replace(" ", "")
+    name = str(errorCheck(step, choice))
+    print("\nWelcome " + str(name) + " to the tropic airlines ordering system")
     return name
 
 
 def mainMenu(userName):
     # This function is the main menu for the program takes the username as input and returns the user choice
     # to the main() variable of userChoice
+    step = str("mainMenu")
     print("\nTropic Airline ticket Ordering System")
     print("\n(I)nformation \n(O)rder ticker \n(E)xit")
     choice = str(input("Please make a menu selection:"))
     choice = choice.lower()
-    choice = choice.replace(" ","")
-    while choice != "i" and choice != "o" and choice != "e":
-        choice = str(input("\nError! Please make a valid menu selection:"))
-        choice = choice.lower()
-        choice = choice.replace(" ", "")
+    choice = choice.replace(" ", "")
+    choice = errorCheck(step, choice)
     if choice == "i":
         print("\nThank you for choosing Tropical Airlines for your air travel needs.\n"
               "You will be asked questions regarding what type of ticket you would "
@@ -46,36 +43,33 @@ def mainMenu(userName):
 def traveler(userName):
         # This function determines if the ticket is for another person if so gets their name, takes userName as input
         # returns anotherPerson to main()
-        anotherPerson = str("No")
+        step = str("traveler")
         print("\n" + userName + ", is this ticket for:")
         print("\n(Y)ou \n(S)omeone else")
         choice = str(input("Please make a menu selection:"))
         choice = choice.lower()
         choice = choice.replace(" ", "")
-        while choice != "y" and choice != "s":
-            choice = str(input("Error!\nPlease make a valid menu selection:"))
-            choice = choice.lower()
-            choice = choice.replace(" ", "")
+        choice = errorCheck(step, choice)
         if choice == "s":
+            step = str("another")
             anotherPerson = str(input("\nEnter the name of the person travelling:"))
-            anotherPerson.replace(" ","")
-            while anotherPerson == "":
-                anotherPerson = str(input("\nError!\nPlease enter the name of person travelling?:"))
-                anotherPerson.replace(" ", "")
+            anotherPerson = anotherPerson.replace(" ", "")
+            choice = anotherPerson
+            anotherPerson = str(errorCheck(step, choice))
             return anotherPerson
-        return anotherPerson
+        else:
+            anotherPerson = str("No")
+            return anotherPerson
 
 
 def returnTrip():
     # asks the user if it is a return trip, returns the boolean value tripReturn to the main() variable of returnType
+        step = str("returnTrip")
         print("\nIs this a return trip(R) or One-Way(O)?")
         choice = str(input("Please make a menu selection:"))
         choice = choice.lower()
         choice = choice.replace(" ", "")
-        while choice != "r" and choice != "o":
-            choice = str(input("Error!\nPlease make a valid menu selection:"))
-            choice = choice.lower()
-            choice = choice.replace(" ", "")
+        choice = errorCheck(step, choice)
         if choice == "r":
             tripReturn = True
             return tripReturn
@@ -88,6 +82,7 @@ def destination(returnType):
     # Determines the cost of travelling to a destination selected by the user, takes the boolean value
     # of returnType as input and outputs to the global variable of the list currentOrder
     # returns the value of destination to the variable tripLocation in main()
+        step = str("destination")
         cairns = int(400)
         sydney = int(575)
         perth = int(700)
@@ -102,10 +97,7 @@ def destination(returnType):
         choice = str(input("Please make a menu selection:"))
         choice = choice.lower()
         choice = choice.replace(" ", "")
-        while choice != "c" and choice != "s" and choice != "p":
-            choice = str(input("Error!\nPlease make a correct menu selection:"))
-            choice = choice.lower()
-            choice = choice.replace(" ", "")
+        choice = errorCheck(step, choice)
         if choice == "c":
             currentOrder[0] = cairns
             destination = str("Cairns")
@@ -123,6 +115,7 @@ def destination(returnType):
 def fareClass():
     # Determines the cost of the flight class, returns a value to the global  list variable currentOrder
     # returns the variable seatClass to the main() variable of seatClass
+    step = str("fare")
     business = int(275)
     economy = int(25)
     frugal = int(0)
@@ -132,10 +125,7 @@ def fareClass():
     choice = str(input("Please make a menu selection:"))
     choice = choice.lower()
     choice = choice.replace(" ", "")
-    while choice != "b" and choice != "e" and choice != "f":
-        choice = str(input("Error!, Please make a valid menu selection:"))
-        choice = choice.lower()
-        choice = choice.replace(" ", "")
+    choice = errorCheck(step, choice)
     if choice == "b":
         currentOrder[1] = business
         fareClass = str("Business")
@@ -154,6 +144,7 @@ def seatType(seatClass):
     # Takes seatClass as input ,Asks the user what type of seat they want
     # return a value to the global variable currentOrder , returns the variable seatType to main()
     # variable of seat
+    step = str("seat")
     window = int(75)
     aisle = int(50)
     middle = int(-25)
@@ -163,10 +154,7 @@ def seatType(seatClass):
         choice = str(input("Please make a menu selection:"))
         choice = choice.lower()
         choice = choice.replace(" ", "")
-        while choice != "w" and choice != "a" and choice != "m":
-            choice = str(input("Error!, Please make a valid menu selection:"))
-            choice = choice.lower()
-            choice = choice.replace(" ", "")
+        choice = errorCheck(step, choice)
         if choice == "w":
             currentOrder[2] = window
             seatType = str("Window")
@@ -187,11 +175,12 @@ def seatType(seatClass):
 
 def age():
     # Determines the age of the user, returns age to the main() variable userAge
-    age = int(input("\nHow old is the person travelling? Travellers under 16 years old will receive a 50% discount"
+    step = str("age")
+    travelAge = int(input("\nHow old is the person travelling? Travellers under 16 years old will receive a 50% discount"
                     " for the fare:"))
-    while age < 0 or age >= 90:
-        age = int(input("Error! Invalid value\nPlease enter a valid value"))
-    return age
+    choice = travelAge
+    travelAge = errorCheck(step, choice)
+    return travelAge
 
 
 def ticketFor(userName, anotherPerson):
@@ -273,6 +262,70 @@ def main():
         listCosts(returnType, tripLocation, seatClass, seat, userAge)
         totalCost(userAge)
         userChoice = mainMenu(userName)
+
+
+def errorCheck(step, choice):
+    # error checking function, takes step and user input as choice and returns user input back to the function that
+    # called it, step is assigned locally in each function.
+    if step == "name":
+        while choice == "":
+            name = str(input("Error!\nPlease enter your name:"))
+            name = name.replace(" ", "")
+            return name
+        return choice
+    elif step == "mainMenu":
+        while choice != "i" and choice != "o" and choice != "e":
+            choice = str(input("\nError! Please make a valid menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "traveler":
+        while choice != "y" and choice != "s":
+            choice = str(input("Error!\nPlease make a valid menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "another":
+        while choice == "":
+            choice = str(input("\nError!\nPlease enter the name of person travelling?:"))
+            choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "returnTrip":
+        while choice != "r" and choice != "o":
+            choice = str(input("Error!\nPlease make a valid menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "destination":
+        while choice != "c" and choice != "s" and choice != "p":
+            choice = str(input("Error!\nPlease make a correct menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "fare":
+        while choice != "b" and choice != "e" and choice != "f":
+            choice = str(input("Error!, Please make a valid menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "seat":
+        while choice != "w" and choice != "a" and choice != "m":
+            choice = str(input("Error!, Please make a valid menu selection:"))
+            choice = choice.lower()
+            choice = choice.replace(" ", "")
+            return choice
+        return choice
+    elif step == "age":
+        while choice < 0 or choice >= 90:
+            choice = int(input("Error! Invalid value\nPlease enter a valid value"))
+            return choice
+        return choice
 
 
 main()
