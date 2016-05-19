@@ -246,24 +246,6 @@ def final(userName):
         quit()
 
 
-def main():
-    # the controller of the program many value are stored here and every function but final(userName) is called here
-    userName = getUserName()
-    userChoice = mainMenu(userName)
-    while userChoice != "e":
-        anotherPerson = traveler(userName)
-        returnType = returnTrip()
-        tripLocation = destination(returnType)
-        seatClass = fareClass()
-        seat = seatType(seatClass)
-        userAge = age()
-        print("\nCalculating fare...\n")
-        ticketFor(userName, anotherPerson)
-        listCosts(returnType, tripLocation, seatClass, seat, userAge)
-        totalCost(userAge)
-        userChoice = mainMenu(userName)
-
-
 def errorCheck(step, choice):
     # error checking function, takes step and user input as choice and returns user input back to the function that
     # called it, step is assigned locally in each function.
@@ -326,6 +308,26 @@ def errorCheck(step, choice):
             choice = int(input("Error! Invalid value\nPlease enter a valid value"))
             return choice
         return choice
+
+
+def main():
+    # the controller of the program many value are stored here and every function but final(userName) is called here
+    userName = getUserName()
+    userChoice = mainMenu(userName)
+    while userChoice != "e":
+        anotherPerson = traveler(userName)
+        returnType = returnTrip()
+        tripLocation = destination(returnType)
+        seatClass = fareClass()
+        seat = seatType(seatClass)
+        userAge = age()
+        print("\nCalculating fare...\n")
+        ticketFor(userName, anotherPerson)
+        listCosts(returnType, tripLocation, seatClass, seat, userAge)
+        totalCost(userAge)
+        userChoice = mainMenu(userName)
+
+
 
 
 main()
